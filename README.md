@@ -6,5 +6,5 @@ This note taker project was created in order to take and ave notes easily while 
 
 ## Usage
 
-    ![Screenshot](/note-taker/public/assets/note-taker-placeholder-screenshot.PNG)
+    ![Screenshot](./note-taker-placeholder-screenshot.PNG)
     
