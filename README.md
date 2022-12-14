@@ -6,5 +6,3 @@ This note taker project was created in order to take and ave notes easily while 
 
 ## Usage
 
-    !(./note-taker-placeholder-screenshot.PNG)
-    
