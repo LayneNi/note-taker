@@ -1,13 +1,14 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const data = require('./db/db.json')
-// const util = require('util');
-const PORT = process.env.PORT || 3001;
+const data = require('./db/db.json');
+// const { readFile } = require('fs/promises');
+const util = require('util');
+const PORT = process.env.PORT || 3002;
 const app = express();
 
 
-// const readFromFile = util.promisify(fs.readFile);
+const readFromFile = util.promisify(fs.readFile);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -33,8 +34,16 @@ app.get('/notes', (req, res) => {
   console.info(`${req.method} request received to get notes`);
 });
 
+app.get('/api/notes', (req, res) => {
+  readFromFile('./db/db.json').then((data) => {
+    console.log(JSON.parse(data));
+    res.json(JSON.parse(data))
+  }).catch(err => res.json(err));
+  // res.status(200).json(`${req.method} request received to get notes`);
+})
+
 // POST request to add a note
-app.post('/notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
   // Log that a POST request was received
   console.info(`${req.method} request received to add a notes`);
 
@@ -61,7 +70,7 @@ console.info('req.body');
         console.log('ping');
         console.log('data');
         const parsedNotes = JSON.parse(data);
-        writeToFile("/notes", parsedNotes)
+        // writeToFile("/notes", parsedNotes)
       
         // Add a new note
         parsedNotes.push(newNote);
